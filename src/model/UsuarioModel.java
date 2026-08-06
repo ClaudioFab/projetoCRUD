@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 public class UsuarioModel {
+
     private int idusuario;
     private String nome;
     private String cpf;
@@ -59,11 +60,7 @@ public class UsuarioModel {
     public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
-    
-    
-    
-    
-    
+
 }
 
 

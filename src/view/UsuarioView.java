@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 
 public class UsuarioView extends javax.swing.JFrame {
-
+   
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsuarioView.class.getName());
 
@@ -26,15 +26,17 @@ public class UsuarioView extends javax.swing.JFrame {
         jLabelTotalTarefas = new javax.swing.JLabel();
         jComboBoxListagem = new javax.swing.JComboBox<>();
         jPanelBotao = new javax.swing.JPanel();
-        jButtonConcluirTarefa = new javax.swing.JButton();
+        jButtonTeste = new javax.swing.JButton();
         jButtonRemoverTarefa = new javax.swing.JButton();
+        jButtonEditarTarefa = new javax.swing.JButton();
         jPanelTitulo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelProjetoCrud = new javax.swing.JLabel();
         jMenuBarCadastroTarefas = new javax.swing.JMenuBar();
         jMenuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cadastro de Tarefas");
+        setTitle("ProjetoCRUD");
+        setPreferredSize(new java.awt.Dimension(700, 800));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -59,6 +61,7 @@ public class UsuarioView extends javax.swing.JFrame {
             }
         });
 
+        jButtonAdicionarTarefa.setBackground(new java.awt.Color(51, 51, 51));
         jButtonAdicionarTarefa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonAdicionarTarefa.setForeground(new java.awt.Color(255, 255, 255));
         jButtonAdicionarTarefa.setText("Adicionar");
@@ -97,6 +100,7 @@ public class UsuarioView extends javax.swing.JFrame {
         jLabelTotalTarefas.setText("Total de tarefas: 0");
 
         jComboBoxListagem.setBackground(new java.awt.Color(0, 0, 0));
+        jComboBoxListagem.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jComboBoxListagem.setForeground(new java.awt.Color(255, 255, 255));
         jComboBoxListagem.addActionListener(this::jComboBoxListagemActionPerformed);
 
@@ -112,14 +116,14 @@ public class UsuarioView extends javax.swing.JFrame {
                     .addGroup(jPanelListaTarefaLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(jComboBoxListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
         jPanelListaTarefaLayout.setVerticalGroup(
             jPanelListaTarefaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelListaTarefaLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jComboBoxListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(jComboBoxListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabelTotalTarefas)
                 .addGap(12, 12, 12))
         );
@@ -127,45 +131,56 @@ public class UsuarioView extends javax.swing.JFrame {
         jPanelBotao.setBackground(new java.awt.Color(255, 255, 255));
         jPanelBotao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Gerenciamento de Tarefas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        jButtonConcluirTarefa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonConcluirTarefa.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonConcluirTarefa.setText("Concluir");
-        jButtonConcluirTarefa.addActionListener(this::jButtonConcluirTarefaActionPerformed);
+        jButtonTeste.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonTeste.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonTeste.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonTeste.setText("TESTE");
+        jButtonTeste.addActionListener(this::jButtonTesteActionPerformed);
 
+        jButtonRemoverTarefa.setBackground(new java.awt.Color(51, 51, 51));
         jButtonRemoverTarefa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButtonRemoverTarefa.setForeground(new java.awt.Color(255, 255, 255));
         jButtonRemoverTarefa.setText("Remover");
         jButtonRemoverTarefa.addActionListener(this::jButtonRemoverTarefaActionPerformed);
+
+        jButtonEditarTarefa.setBackground(new java.awt.Color(51, 51, 51));
+        jButtonEditarTarefa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonEditarTarefa.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEditarTarefa.setText("Editar");
+        jButtonEditarTarefa.addActionListener(this::jButtonEditarTarefaActionPerformed);
 
         javax.swing.GroupLayout jPanelBotaoLayout = new javax.swing.GroupLayout(jPanelBotao);
         jPanelBotao.setLayout(jPanelBotaoLayout);
         jPanelBotaoLayout.setHorizontalGroup(
             jPanelBotaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotaoLayout.createSequentialGroup()
-                .addGap(349, 349, 349)
-                .addComponent(jButtonConcluirTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(jButtonRemoverTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonTeste, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonEditarTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonRemoverTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         jPanelBotaoLayout.setVerticalGroup(
             jPanelBotaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBotaoLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addGroup(jPanelBotaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRemoverTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConcluirTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                    .addComponent(jButtonTeste, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditarTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonRemoverTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanelTitulo.setBackground(new java.awt.Color(255, 255, 255));
         jPanelTitulo.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/icons8-cadastro-50.png"))); // NOI18N
-        jLabel1.setText("Cadastro MVC em Database");
+        jLabelProjetoCrud.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelProjetoCrud.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelProjetoCrud.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelProjetoCrud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-cadastro-60.png"))); // NOI18N
+        jLabelProjetoCrud.setText("Projeto CRUD");
 
         javax.swing.GroupLayout jPanelTituloLayout = new javax.swing.GroupLayout(jPanelTitulo);
         jPanelTitulo.setLayout(jPanelTituloLayout);
@@ -173,14 +188,14 @@ public class UsuarioView extends javax.swing.JFrame {
             jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelProjetoCrud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelTituloLayout.setVerticalGroup(
             jPanelTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTituloLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelProjetoCrud, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -213,7 +228,7 @@ public class UsuarioView extends javax.swing.JFrame {
                 .addComponent(jPanelListaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanelBotao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,9 +239,9 @@ public class UsuarioView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonAdicionarTarefaActionPerformed
 
-    private void jButtonConcluirTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConcluirTarefaActionPerformed
+    private void jButtonTesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTesteActionPerformed
 
-    }//GEN-LAST:event_jButtonConcluirTarefaActionPerformed
+    }//GEN-LAST:event_jButtonTesteActionPerformed
 
     private void jButtonRemoverTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverTarefaActionPerformed
 
@@ -250,18 +265,34 @@ public class UsuarioView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxListagemActionPerformed
 
+    private void jButtonEditarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarTarefaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEditarTarefaActionPerformed
+
     public static void main(String args[]) {
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         java.awt.EventQueue.invokeLater(() -> new UsuarioView().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarTarefa;
-    private javax.swing.JButton jButtonConcluirTarefa;
+    private javax.swing.JButton jButtonEditarTarefa;
     private javax.swing.JButton jButtonRemoverTarefa;
+    private javax.swing.JButton jButtonTeste;
     private javax.swing.JComboBox<String> jComboBoxListagem;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelNomeTarefa;
+    private javax.swing.JLabel jLabelProjetoCrud;
     private javax.swing.JLabel jLabelTotalTarefas;
     private javax.swing.JMenuBar jMenuBarCadastroTarefas;
     private javax.swing.JMenu jMenuSair;
