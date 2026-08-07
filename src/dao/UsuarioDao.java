@@ -24,10 +24,12 @@ public class UsuarioDao {
             ps.setString(2,usuario.getCpf());
             ps.setString(3,usuario.getEmail());
             ps.setString(4,usuario.getTelefone());
-            ps.setDate(5, new java.sql.Date(usuario.getNascimento().getTime()));
+            ps.setDate(5,usuario.getNascimento());
             
+            ps.execute();
+            ps.close();
             
-            
+            JOptionPane.showMessageDialog(null,"Usuário Cadastrado!","Aviso!",JOptionPane.WARNING_MESSAGE);
             
             
             
