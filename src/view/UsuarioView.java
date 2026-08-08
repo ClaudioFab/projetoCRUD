@@ -1,23 +1,89 @@
 package view;
 
+import dao.UsuarioDao;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import model.UsuarioModel;
+import util.Format;
 
 public class UsuarioView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsuarioView.class.getName());
+
     public UsuarioView() {
         initComponents();
+        limpar();
+        totalCadastros();
+        listaCombobox();
+    }
 
+    private Connection connection;
+
+    //ComboBox
+    
+    public void totalCadastros() {
+        jLabelTotalCadastros.setText("Total de cadastros: ??");
+    }
+
+    public void listaCombobox(){
+        //jComboBoxListagem.addItem(nome);  
     }
     
-    public void limpar(){
+    public void limpar() {
         jTextFieldNomeUsuario.setText("");
         jFormattedTextCPF.setText("");
         jTextFieldEmail.setText("");
         jFormattedTextTelefone.setText("");
         jFormattedTextDataNascimento.setText("");
     }
-    
+
+    public void errou() {
+        JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o usuário!", "Erro!", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void cadastro() {
+        String nome = jTextFieldNomeUsuario.getText();
+        String cpf = jFormattedTextCPF.getText();
+        String email = jTextFieldEmail.getText();
+        String telefone = jFormattedTextTelefone.getText();
+        String Nascimento = jFormattedTextDataNascimento.getText();
+
+        //Impedir números
+        if (nome.matches(".*\\d.*")) {
+            errou();
+            limpar();
+            return;
+        }
+
+        if (nome.isEmpty() || cpf.isEmpty() || email.isEmpty() || telefone.isEmpty() || Nascimento.isEmpty()) {
+            errou();
+            limpar();
+            return;
+        }
+
+        UsuarioModel u = new UsuarioModel();
+
+        try {
+            u.setNome(nome);
+            u.setCpf(cpf);
+            u.setEmail(email);
+            u.setTelefone(telefone);
+            u.setNascimento(Format.converterParaSqlDate(Nascimento));
+
+            UsuarioDao dao = new UsuarioDao(connection);
+            dao.adicionar(u);
+
+            JOptionPane.showMessageDialog(null, "Usuário " + nome + " cadastrado com sucesso!\n(Botão View)", "Aviso!", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            errou();
+            limpar();
+            return;
+        }
+
+        limpar();
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -39,7 +105,7 @@ public class UsuarioView extends javax.swing.JFrame {
         jFormattedTextCPF = new javax.swing.JFormattedTextField();
         jTextFieldEmail = new javax.swing.JTextField();
         jPanelListaTarefa = new javax.swing.JPanel();
-        jLabelTotalTarefas = new javax.swing.JLabel();
+        jLabelTotalCadastros = new javax.swing.JLabel();
         jComboBoxListagem = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -121,7 +187,7 @@ public class UsuarioView extends javax.swing.JFrame {
         jFormattedTextDataNascimento.setBackground(new java.awt.Color(0, 0, 0));
         jFormattedTextDataNascimento.setForeground(new java.awt.Color(255, 255, 255));
         try {
-            jFormattedTextDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            jFormattedTextDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -218,9 +284,9 @@ public class UsuarioView extends javax.swing.JFrame {
         jPanelListaTarefa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Lista de Cadastros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 15), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanelListaTarefa.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabelTotalTarefas.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabelTotalTarefas.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelTotalTarefas.setText("Total de cadastros: 0");
+        jLabelTotalCadastros.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabelTotalCadastros.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelTotalCadastros.setText("Total de cadastros: 0");
 
         jComboBoxListagem.setBackground(new java.awt.Color(0, 0, 0));
         jComboBoxListagem.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -233,7 +299,7 @@ public class UsuarioView extends javax.swing.JFrame {
             jPanelListaTarefaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelListaTarefaLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jLabelTotalTarefas)
+                .addComponent(jLabelTotalCadastros)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(52, Short.MAX_VALUE))
@@ -244,7 +310,7 @@ public class UsuarioView extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanelListaTarefaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxListagem, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTotalTarefas))
+                    .addComponent(jLabelTotalCadastros))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -312,7 +378,7 @@ public class UsuarioView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeUsuarioKeyPressed
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-
+        cadastro();
     }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -365,7 +431,7 @@ public class UsuarioView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelNomeUsuario;
     private javax.swing.JLabel jLabelTelefone;
-    private javax.swing.JLabel jLabelTotalTarefas;
+    private javax.swing.JLabel jLabelTotalCadastros;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
